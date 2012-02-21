@@ -1,0 +1,80 @@
+This is a Ruby CLI for managing a Google hosted email domain.
+
+As I have do not currently have access to one of those, it is a bit stagnant.
+
+The documentation is sparce at best, when I find time I'll improve the comments that RubyDoc relies on.
+
+starting should be simple:
+
+require 'googleapi'
+@api = GoogleAPI.new('yourdomin.com')
+@api.login 
+@api.cli
+
+
+This will prompt for your email and password and, assuming you have adminitrative access to yourdomain.com, log you in present the CLI prompt.
+
+
+
+Basic CLI Commands
+
+parameters marked with {} are optional, but will be taken from the current object if one exists
+
+Object creation(local):
+		new user <username> [<firstname> <lastname> <password> <forcepwchange> <admin> <quota> <suspended>]
+	 	new group <groupid> <groupname> [<description> <emailperm>]
+	 	new nickname <username> <nickname>
+	 	new member <id>
+	 	new owner <email>
+	 	new <user|nickname|member|group|owner> (without params)-  create an object of the specified type and prompt for details
+	 		All of the above set the current object to the newly created object
+	 
+Object creation(remote):
+	createuser
+	createnickname
+	creategroup
+	 		- create a remote object from the current object
+	create - infer one of the above based on the current object
+		  
+Object update(local):
+	set <parameter> [<value>] - set <parameter> of the current object to <value> - prompt if value is not specified
+			  
+Object update(remote):
+	updateuser
+	updategroup
+		- Update the remote object with the current object
+   	update - infer one of the above based on the type of the current object
+				   
+Object Deletetion(remote):
+   	deletegroup|delgroup {<groupid>} - delete a group
+   	deleteuser|deluser {<username>} - delete a user
+   	deletenickname|delnickname {<nickname>} - delete a nickname
+   	delete|del - infer one of the above based on the current object
+					   
+Object retrieval(remote):
+   	getuser {<username>} - retrieve user, list of users if not specified
+   	getnickname {<nickname>} - return nickname, list of all nicknames if not specified
+   	getusernickname {<username>} - return list of nicknames for user, list of all nicknames if not specified
+   	getgroup {<groupid>} - return group, list of groups if not specified
+						   
+Groups:
+   	addmember <groupid> - add current object of type member to groupid
+   	getmember {<groupid>} - return the list of current members of groupid - all groups if no current object
+   	getmemberof {<groupid>|<username>} - list groups of which the specified group or user is a member - all groups if no current object
+   	removemember <groupid> {<member>} - remove member from the group
+   	getowner {<groupid>} - return current owner of the group
+   	setowner <groupid> {<owner>} - set current owner of the group
+   	removeowner <groupid> {<owner>} - remove the owner from the group
+						   
+Misc:
+  	select <index> - select a specific item when current object is an array
+   	pipe <filename> - duplicate(tee) output to filename
+   	nopipe - terminate pipe
+   	show - display current object
+   	prompt [<text>] - set prompt to text, GoogleAPI if not specified. Note: type of the current object will be appended
+   	http.code - return http status code of the last remote operation
+   	http.message - return http status message of the last remote operation
+   	http.body - return http body from the last remote operation
+   	help [create|delete|get|update|group|misc] - display help
+   	exit|quit|bye - exit
+

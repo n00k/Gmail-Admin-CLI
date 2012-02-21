@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>removeowner (googleapi.rb)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File googleapi.rb, line 632</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">removeowner</span>(<span class="ruby-identifier">groupid</span>,<span class="ruby-identifier">owneremail</span>)
+                <span class="ruby-identifier">groupid</span> = <span class="ruby-identifier">groupid</span>.<span class="ruby-identifier">id</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">groupid</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Groupentry</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>,<span class="ruby-value str">&quot;Invalid group id&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">groupid</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">String</span>
+                <span class="ruby-identifier">owneremail</span> = <span class="ruby-identifier">owneremail</span>.<span class="ruby-identifier">email</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">owneremail</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Ownerentry</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>,<span class="ruby-value str">&quot;Invalid owner email&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">owneremail</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">String</span>
+                <span class="ruby-identifier">readfeed</span>(<span class="ruby-identifier">urlcall</span>(<span class="ruby-node">&quot;https://apps-apis.google.com/a/feeds/group/2.0/#{@domain}/#{groupid}/owner/#{owneremail}&quot;</span>,<span class="ruby-value str">&quot;DELETE&quot;</span>),<span class="ruby-constant">Ownerentry</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

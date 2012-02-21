@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>help (GoogleAPI)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File googleapi.rb, line 238</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">section</span>=<span class="ruby-value str">'all'</span>)
+                <span class="ruby-identifier">section</span> = <span class="ruby-value str">'all'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">section</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">String</span>
+                <span class="ruby-identifier">section</span>.<span class="ruby-identifier">downcase!</span>
+                <span class="ruby-identifier">section</span> = <span class="ruby-value str">'all'</span> <span class="ruby-keyword kw">unless</span> [<span class="ruby-value str">'create'</span>,<span class="ruby-value str">'update'</span>,<span class="ruby-value str">'delete'</span>,<span class="ruby-value str">'get'</span>,<span class="ruby-value str">'group'</span>,<span class="ruby-value str">'misc'</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">section</span>)
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Basic Commands&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\t parameters marked with {} are optional, but will be taken from the current object if one exists&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'create'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Object creation(local):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew user &lt;username&gt; [&lt;firstname&gt; &lt;lastname&gt; &lt;password&gt; &lt;forcepwchange&gt; &lt;admin&gt; &lt;quota&gt; &lt;suspended&gt;]&quot;</span> 
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew group &lt;groupid&gt; &lt;groupname&gt; [&lt;description&gt; &lt;emailperm&gt;]&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew nickname &lt;username&gt; &lt;nickname&gt;&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew member &lt;id&gt;&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew owner &lt;email&gt;&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnew &lt;user|nickname|member|group|owner&gt; (without params)-  create an object of the specified type and prompt for details&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\t\tAll of the above set the current object to the newly created object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nObject creation(remote):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tcreateuser\n\tcreatenickname\n\tcreategroup&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\t\tcreate a remote object from the current object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tcreate - infer one of the above based on the current object&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'update'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nObject update(local):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;set &lt;parameter&gt; [&lt;value&gt;] - set &lt;parameter&gt; of the current object to &lt;value&gt; - prompt if value is not specified&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nObject update(remote):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tupdateuser\n\tupdategroup\n\t\tUpdate the remote object with the current object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tupdate - infer one of the above based on the type of the current object&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'delete'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nObject Deletetion(remote):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tdeletegroup|delgroup {&lt;groupid&gt;} - delete a group&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tdeleteuser|deluser {&lt;username&gt;} - delete a user&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tdeletenickname|delnickname {&lt;nickname&gt;} - delete a nickname&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tdelete|del - infer one of the above based on the current object&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'get'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nObject retrieval(remote):&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetuser {&lt;username&gt;} - retrieve user, list of users if not specified&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetnickname {&lt;nickname&gt;} - return nickname, list of all nicknames if not specified&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetusernickname {&lt;username&gt;} - return list of nicknames for user, list of all nicknames if not specified&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetgroup {&lt;groupid&gt;} - return group, list of groups if not specified&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'group'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nGroups:&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\taddmember &lt;groupid&gt; - add current object of type member to groupid&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetmember {&lt;groupid&gt;} - return the list of current members of groupid - all groups if no current object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetmemberof {&lt;groupid&gt;|&lt;username&gt;} - list groups of which the specified group or user is a member - all groups if no current object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tremovemember &lt;groupid&gt; {&lt;member&gt;} - remove member from the group&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tgetowner {&lt;groupid&gt;} - return current owner of the group&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tsetowner &lt;groupid&gt; {&lt;owner&gt;} - set current owner of the group&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tremoveowner &lt;groupid&gt; {&lt;owner&gt;} - remove the owner from the group&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'all'</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">section</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'misc'</span>)
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nMisc:&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tselect &lt;index&gt; - select a specific item when current object is an array&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tpipe &lt;filename&gt; - duplicate(tee) output to filename&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tnopipe - terminate pipe&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tshow - display current object&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\tprompt [&lt;text&gt;] - set prompt to text, GoogleAPI if not specified. Note: type of the current object will be appended&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\thttp.code - return http status code of the last remote operation&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\thttp.message - return http status message of the last remote operation&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\thttp.body - return http body from the last remote operation&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\thelp [create|delete|get|update|group|misc] - display help&quot;</span>
+                        <span class="ruby-ivar">@OUTSTREAM</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\texit|quit|bye - exit&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
